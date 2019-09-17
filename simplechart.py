@@ -1,5 +1,5 @@
 import matplotlib
-matplotlib.use('GTK3Agg')  # or 'GTK3Cairo'
+matplotlib.use('GTK3Agg')
 import matplotlib.pyplot as plt
 import xlrd
 import csv
@@ -24,15 +24,15 @@ class FileChooserWindow(Gtk.Window):
             openx = dialog.get_filename()
             wb = xlrd.open_workbook(openx)
             sh = wb.sheet_by_index(0)
-            arquivo = open('arquivo.csv', 'w',encoding='utf-8')
-            wr = csv.writer(arquivo, quoting=csv.QUOTE_ALL)
+            file = open('file.csv', 'w',encoding='utf-8')
+            wr = csv.writer(file, quoting=csv.QUOTE_ALL)
     
             for rownum in range(sh.nrows):
                 wr.writerow(sh.row_values(rownum))
 
-            arquivo.close()
+            file.close()
             dialog.destroy()
-            data = pd.read_csv('arquivo.csv')
+            data = pd.read_csv('file.csv')
             data.drop(["ID", "Nome","Hora de início","Hora de conclusão","Email", 
             "Data de Nascimento", "Por que você prestou o Vestibular nesta faculdade?"], axis=1, inplace=True)
             coluna = data.columns
