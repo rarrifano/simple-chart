@@ -8,19 +8,22 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
+# GTK creates a window
+
 class FileChooserWindow(Gtk.Window):
+
+    # Startup
 
     def __init__(self):
         Gtk.Window.__init__(self, title="FileChooser")
         dialog = Gtk.FileChooserDialog("Please choose a file", self,
             Gtk.FileChooserAction.OPEN,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-             Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
+             Gtk.STOCK_OPEN, Gtk.ResponseType.OK)) # Buttons
 
         response = dialog.run()
+        
         if response == Gtk.ResponseType.OK:
-            print("Open clicked")
-            print("File selected: " + dialog.get_filename())
             openx = dialog.get_filename()
             wb = xlrd.open_workbook(openx)
             sh = wb.sheet_by_index(0)
@@ -37,7 +40,9 @@ class FileChooserWindow(Gtk.Window):
             "Data de Nascimento", "Por que você prestou o Vestibular nesta faculdade?"], axis=1, inplace=True)
             coluna = data.columns
             plt.figure("Trabalho Sócio Econômico")
-            # testa a geração do gráfico de acordo com as colunas
+            
+            # Open chart with lines and coluns
+            
             for i in coluna:
                 lablel = data[i].value_counts()
                 data[i].value_counts().plot.pie(title= i, label=i, autopct='%1.1f%%',figsize=(16,9))
