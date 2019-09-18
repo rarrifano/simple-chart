@@ -19,13 +19,13 @@ class FileChooserWindow(Gtk.Window):
         if response == Gtk.ResponseType.OK:
             print("Open clicked")
             print("File selected: " + dialog.get_filename())
-            openx = dialog.get_filename()#Get the File name in a variable
+            openx = dialog.get_filename()#Get the File name as a variable
             data = pd.read_excel(openx) # That funtion reads the archive and crete the dataframe
             data.drop(["ID", "Nome","Hora de início","Hora de conclusão","Email", 
             "Data de Nascimento", "Por que você prestou o Vestibular nesta faculdade?"], axis=1, inplace=True) # Adjusting the dataframe
             coluna = data.columns # Set the name of columns in an array
             plt.figure("Trabalho Sócio Econômico") # Set the name of the figure
-            # This for starts the plotting
+            # Ploting all pie charts acording the name of column
             for i in coluna:
                 data[i].value_counts().plot.pie(title= i, label=i, autopct='%1.1f%%',figsize=(16,9)) # Ploting a Pie Chart
                 plt.ylabel('')
