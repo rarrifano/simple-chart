@@ -22,15 +22,15 @@ class FileChooserWindow(Gtk.Window):
             openx = dialog.get_filename()#Get the File name in a variable
             data = pd.read_excel(openx) # That funtion reads the archive and crete the dataframe
             data.drop(["ID", "Nome","Hora de início","Hora de conclusão","Email", 
-            "Data de Nascimento", "Por que você prestou o Vestibular nesta faculdade?"], axis=1, inplace=True) #
+            "Data de Nascimento", "Por que você prestou o Vestibular nesta faculdade?"], axis=1, inplace=True) # Adjusting the dataframe
             coluna = data.columns # Set the name of columns in an array
             plt.figure("Trabalho Sócio Econômico") # Set the name of the figure
-            # This for starts 
+            # This for starts the plotting
             for i in coluna:
-                data[i].value_counts().plot.pie(title= i, label=i, autopct='%1.1f%%',figsize=(16,9))
+                data[i].value_counts().plot.pie(title= i, label=i, autopct='%1.1f%%',figsize=(16,9)) # Ploting a Pie Chart
                 plt.ylabel('')
-                plt.legend(title=i,loc="best")
-                plt.show()
+                plt.legend(title=i,loc="best") # Seting the Legend
+                plt.show() # Showing the chart
             
         elif response == Gtk.ResponseType.CANCEL:
             print("Cancel clicked")
