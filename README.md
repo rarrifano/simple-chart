@@ -7,13 +7,13 @@ This software are made for a work of college for social economic research, Simpl
 
 ## Getting started
 
-Open your terminal in the correct folder
+Open your terminal in the correct folder and install pip packages
 ```
-$ chmod +x simplechart.py
+$ pip install -r requirements --user
 ```
 And execute the Python file
 ```
-$ ./simplechart.py
+$ python simplechart.py
 ```
 
 Enjoy :D
