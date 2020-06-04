@@ -1,8 +1,6 @@
 import matplotlib
 matplotlib.use('GTK3Agg')
 import matplotlib.pyplot as plt
-import xlrd
-import csv
 import pandas as pd
 import gi
 gi.require_version('Gtk', '3.0')
@@ -24,34 +22,20 @@ class FileChooserWindow(Gtk.Window):
         response = dialog.run()
         
         if response == Gtk.ResponseType.OK:
-            openx = dialog.get_filename()
-            wb = xlrd.open_workbook(openx)
-            sh = wb.sheet_by_index(0)
-            file = open('file.csv', 'w',encoding='utf-8')
-            wr = csv.writer(file, quoting=csv.QUOTE_ALL)
-    
-            for rownum in range(sh.nrows):
-                wr.writerow(sh.row_values(rownum))
-
-            file.close()
-            dialog.destroy()
-            data = pd.read_csv('file.csv')
+            print("Open clicked")
+            print("File selected: " + dialog.get_filename())
+            openx = dialog.get_filename()#Get the File name as a variable
+            data = pd.read_excel(openx) # That funtion reads the archive and crete the dataframe
             data.drop(["ID", "Nome","Hora de início","Hora de conclusão","Email", 
-            "Data de Nascimento", "Por que você prestou o Vestibular nesta faculdade?"], axis=1, inplace=True)
-            coluna = data.columns
-            plt.figure("Trabalho Sócio Econômico")
-            
-            # Open chart with lines and coluns
-            
+            "Data de Nascimento", "Por que você prestou o Vestibular nesta faculdade?"], axis=1, inplace=True) # Adjusting the dataframe
+            coluna = data.columns # Set the name ofc olumns in an array
+            plt.figure("Trabalho Sócio Econômico") # Set the name of the figure
+            # Ploting all pie charts acording the name of column
             for i in coluna:
-                lablel = data[i].value_counts()
-                data[i].value_counts().plot.pie(title= i, label=i, autopct='%1.1f%%',figsize=(16,9))
-                plt.axis('equal')
-                plt.tight_layout()
-                plt.legend(title=i,loc="best" )
+                data[i].value_counts().plot.pie(title= i, label=i, autopct='%1.1f%%',figsize=(16,9)) # Ploting a Pie Chart
                 plt.ylabel('')
-                plt.show()
-            
+                plt.legend(title=i,loc="best") # Seting the Legend
+                plt.show() # Showing the chart
         elif response == Gtk.ResponseType.CANCEL:
             print("Cancel clicked")
 
