@@ -7,7 +7,7 @@ This software are made for a work of college for social economic research, Simpl
 
 ## Getting started
 
-Open your terminal in the correct folder and install pip packages
+Open simple chart's folder at your terminal and install pip packages
 ```
 $ pip install -r requirements --user
 ```
